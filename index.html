@@ -1,77 +1,813 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fi">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Hyvää syntymäpäivää Essi ❤️</title>
 
   <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      background: #fff2f6;
-      font-family: system-ui, sans-serif;
-      color: #4b2430;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      padding: 20px;
+
+      font-family: Arial, sans-serif;
+
+      background:
+        linear-gradient(
+          rgba(255, 218, 230, 0.75),
+          rgba(255, 244, 231, 0.85)
+        );
+
+      overflow-x: hidden;
+      position: relative;
     }
+
+
+    /* ISO SYDÄN TAUSTALLA */
+
+    .background-heart {
+
+      position: fixed;
+
+      width: 600px;
+      height: 600px;
+
+      left: 50%;
+      top: 50%;
+
+      transform:
+        translate(-50%, -50%)
+        rotate(-45deg);
+
+      background: #f5a8bd;
+
+      opacity: 0.35;
+
+      z-index: 0;
+    }
+
+
+    .background-heart::before,
+    .background-heart::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 600px;
+      height: 600px;
+
+      background: #f5a8bd;
+
+      border-radius: 50%;
+    }
+
+
+    .background-heart::before {
+
+      top: -300px;
+      left: 0;
+
+    }
+
+
+    .background-heart::after {
+
+      left: 300px;
+      top: 0;
+
+    }
+
+
+    /* LAHJAKORTTI */
 
     .card {
+
+      position: relative;
+
+      z-index: 2;
+
+      width: 100%;
       max-width: 650px;
-      margin: 24px;
-      padding: 42px;
-      border-radius: 28px;
-      background: #fff;
-      box-shadow: 0 14px 45px #c6788b33;
+
+      padding: 50px 35px;
+
       text-align: center;
+
+      background:
+        rgba(255, 255, 255, 0.94);
+
+      border-radius: 30px;
+
+      box-shadow:
+        0 20px 60px
+        rgba(120, 40, 70, 0.25);
     }
+
+
+    .small-title {
+
+      color: #d94873;
+
+      font-size: 13px;
+
+      font-weight: bold;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 12px;
+    }
+
 
     h1 {
-      color: #d34f73;
-      font-size: 2.2rem;
+
+      margin: 0;
+
+      color: #d94873;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(42px, 9vw, 70px);
+
+      line-height: 1;
     }
 
-    p {
-      font-size: 1.25rem;
-      line-height: 1.7;
+
+    .heart {
+
+      margin-top: 18px;
+
+      font-size: 38px;
+
+      animation:
+        heartbeat 1.5s infinite;
     }
+
+
+    .intro {
+
+      max-width: 480px;
+
+      margin:
+        20px auto 30px;
+
+      font-size: 18px;
+
+      line-height: 1.6;
+
+      color: #4b2935;
+    }
+
+
+    /* LAHJAPAINIKE */
+
+    button {
+
+      border: none;
+
+      border-radius: 50px;
+
+      padding:
+        17px 30px;
+
+      font-size: 17px;
+
+      font-weight: bold;
+
+      color: white;
+
+      cursor: pointer;
+
+      background:
+        linear-gradient(
+          135deg,
+          #d94873,
+          #ef7396
+        );
+
+      box-shadow:
+        0 10px 25px
+        rgba(217, 72, 115, 0.35);
+
+      transition:
+        transform 0.2s;
+    }
+
+
+    button:hover {
+
+      transform:
+        scale(1.05);
+
+    }
+
+
+    /* PIILOTETTU LAHJA */
 
     .gift {
-      font-size: 3rem;
-      margin-bottom: 8px;
+
+      display: none;
+
+      margin-top: 30px;
+
     }
+
+
+    .gift.open {
+
+      display: block;
+
+      animation:
+        appear 0.8s ease;
+
+    }
+
+
+    /* KUPONKI */
+
+    .coupon {
+
+      background:
+        #fffdf8;
+
+      border:
+        2px dashed
+        #d7a928;
+
+      border-radius:
+        22px;
+
+      padding:
+        30px 25px;
+    }
+
+
+    .coupon-label {
+
+      color:
+        #d7a928;
+
+      font-size:
+        13px;
+
+      font-weight:
+        bold;
+
+      letter-spacing:
+        3px;
+
+      text-transform:
+        uppercase;
+
+    }
+
+
+    .coupon h2 {
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(27px, 6vw, 38px);
+
+      margin:
+        15px 0 25px;
+
+      color:
+        #4b2935;
+
+    }
+
+
+    .gift-item {
+
+      margin:
+        17px 0;
+
+      padding:
+        15px;
+
+      background:
+        #fff5f8;
+
+      border-radius:
+        16px;
+
+      font-size:
+        18px;
+
+      line-height:
+        1.5;
+
+    }
+
+
+    .gift-icon {
+
+      font-size:
+        28px;
+
+      display:
+        block;
+
+      margin-bottom:
+        7px;
+
+    }
+
+
+    .signature {
+
+      margin-top:
+        25px;
+
+      color:
+        #d94873;
+
+      font-weight:
+        bold;
+
+      font-size:
+        19px;
+
+    }
+
+
+    /* KONFETIT */
+
+    .confetti {
+
+      position:
+        fixed;
+
+      top:
+        -20px;
+
+      width:
+        10px;
+
+      height:
+        16px;
+
+      z-index:
+        10;
+
+      pointer-events:
+        none;
+
+      animation:
+        fall linear forwards;
+
+    }
+
+
+    @keyframes heartbeat {
+
+      0%,
+      100% {
+
+        transform:
+          scale(1);
+
+      }
+
+      50% {
+
+        transform:
+          scale(1.25);
+
+      }
+
+    }
+
+
+    @keyframes appear {
+
+      from {
+
+        opacity:
+          0;
+
+        transform:
+          translateY(20px);
+
+      }
+
+      to {
+
+        opacity:
+          1;
+
+        transform:
+          translateY(0);
+
+      }
+
+    }
+
+
+    @keyframes fall {
+
+      to {
+
+        transform:
+          translate3d(
+            var(--drift),
+            110vh,
+            0
+          )
+          rotate(720deg);
+
+      }
+
+    }
+
+
+    /* PUHELIN */
+
+    @media
+    (max-width: 500px) {
+
+      .card {
+
+        padding:
+          38px 20px;
+
+      }
+
+
+      .background-heart {
+
+        width:
+          400px;
+
+        height:
+          400px;
+
+      }
+
+
+      .background-heart::before,
+      .background-heart::after {
+
+        width:
+          400px;
+
+        height:
+          400px;
+
+      }
+
+
+      .background-heart::before {
+
+        top:
+          -200px;
+
+      }
+
+
+      .background-heart::after {
+
+        left:
+          200px;
+
+      }
+
+    }
+
   </style>
 </head>
 
+
 <body>
-  <div class="coupon-label">
-  Syntymäpäiväkuponki
-</div>
 
-<h2>Yksi valitsemasi pata 🎁</h2>
 
-<p>
-  Tällä kupongilla saat lunastaa valitsemasi padan.
-  Eikä siinä vielä kaikki!
-</p>
+  <!-- Sydän taustalla -->
 
-<br>
+  <div
+    class="background-heart">
+  </div>
 
-<p>
-  ❤️ Nipsun tarjoaman treffi-illan
-</p>
 
-<br>
+  <!-- Varsinainen kortti -->
 
-<p>
-  🕯️ Hemmotteluillan kotona
-</p>
+  <main class="card">
 
-<p class="signature">
-  Paljon onnea, Essi! &lt;3
-</p>
+
+    <div class="small-title">
+
+      Sinulle, Essi
+
+    </div>
+
+
+    <h1>
+
+      Hyvää
+      syntymäpäivää!
+
+    </h1>
+
+
+    <div class="heart">
+
+      ❤️
+
+    </div>
+
+
+    <p class="intro">
+
+      Tämän pienen
+      syntymäpäiväyllätyksen
+      sisältä löytyy
+      muutama lahja
+      juuri sinulle.
+
     </p>
 
+
+    <button
+      id="revealButton">
+
+      Avaa lahjasi 🎁
+
+    </button>
+
+
+
+    <!-- Lahjan sisältö -->
+
+
+    <section
+      class="gift"
+      id="gift">
+
+
+      <div class="coupon">
+
+
+        <div
+          class="coupon-label">
+
+          Syntymäpäiväkuponki
+
+        </div>
+
+
+        <h2>
+
+          Essin lahjapaketti ❤️
+
+        </h2>
+
+
+
+        <div class="gift-item">
+
+          <span
+            class="gift-icon">
+
+            🎁
+
+          </span>
+
+          <strong>
+            Valitsemasi pata
+          </strong>
+
+          <br>
+
+          Tällä kupongilla
+          saat lunastaa
+          valitsemasi padan.
+
+        </div>
+
+
+
+        <div class="gift-item">
+
+          <span
+            class="gift-icon">
+
+            ❤️
+
+          </span>
+
+          <strong>
+            Treffi-ilta
+          </strong>
+
+          <br>
+
+          Nipsun tarjoama
+          treffi-ilta.
+
+        </div>
+
+
+
+        <div class="gift-item">
+
+          <span
+            class="gift-icon">
+
+            🕯️
+
+          </span>
+
+          <strong>
+            Hemmotteluilta kotona
+          </strong>
+
+          <br>
+
+          Lahjaan kuuluu myös
+          hemmotteluilta kotona.
+
+        </div>
+
+
+
+        <p class="signature">
+
+          Paljon onnea,
+          Essi! ❤️
+
+        </p>
+
+
+      </div>
+
+    </section>
+
+
   </main>
+
+
+
+  <script>
+
+    const button =
+      document.getElementById(
+        "revealButton"
+      );
+
+
+    const gift =
+      document.getElementById(
+        "gift"
+      );
+
+
+    button.addEventListener(
+      "click",
+      function () {
+
+        gift.classList.add(
+          "open"
+        );
+
+
+        button.textContent =
+          "Lahja avattu ❤️";
+
+
+        button.disabled =
+          true;
+
+
+        launchConfetti();
+
+      }
+    );
+
+
+
+    function launchConfetti() {
+
+
+      const colors = [
+
+        "#d94873",
+
+        "#f8b4c8",
+
+        "#d7a928",
+
+        "#8ec5a4",
+
+        "#ffffff"
+
+      ];
+
+
+      for (
+        let i = 0;
+        i < 100;
+        i++
+      ) {
+
+
+        const piece =
+          document.createElement(
+            "span"
+          );
+
+
+        piece.className =
+          "confetti";
+
+
+        piece.style.left =
+          Math.random()
+          * 100
+          + "vw";
+
+
+        piece.style.background =
+          colors[
+            Math.floor(
+              Math.random()
+              * colors.length
+            )
+          ];
+
+
+        piece.style.setProperty(
+
+          "--drift",
+
+          Math.random()
+          * 180
+          - 90
+          + "px"
+
+        );
+
+
+        piece.style.animationDuration =
+
+          2.2
+          + Math.random()
+          * 2.2
+          + "s";
+
+
+        piece.style.animationDelay =
+
+          Math.random()
+          * 0.5
+          + "s";
+
+
+        document.body.appendChild(
+          piece
+        );
+
+
+        setTimeout(
+
+          function () {
+
+            piece.remove();
+
+          },
+
+          5000
+
+        );
+
+      }
+
+    }
+
+  </script>
+
+
 </body>
+
 </html>
